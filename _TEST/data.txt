@@ -1,0 +1,12 @@
+12345 George Washington 4567.23 20
+12346 John Adams  1000.56 10
+12347 Bill Clinton  2000 5
+12348 Barack Obama  3000.23 12
+12349 George Bush  4000.99 1
+12340 Jimmy Carter  3500.23 4
+22345 Richard Nixon  5600.21 0
+32345 John Kennedy 6999.23 5
+42345 Thomas Jefferson  1500.45 15
+52345 Abraham Lincoln 2100.23 11
+62345 Ronald Reagan 0.0 12
+78934 Gerald Ford 0.0 4

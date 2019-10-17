@@ -1,0 +1,6 @@
+language: cpp
+compiler: gcc
+notifications:
+  email: false
+script:  # run the main program first then run tests if any
+  - make run_tests
