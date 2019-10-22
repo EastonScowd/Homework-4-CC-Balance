@@ -26,31 +26,34 @@ void outputSummary(ifstream &instream, ofstream &outstream) ; // prints the aver
 int main(int argc, char const *argv[]) {
     ifstream inStream ; // instream and outstream for all the functions 
     ofstream outStream ; 
-
-    if(isValidOption(argv[1])){
-        //checks the option inputted and then runs the function that corresponds with that option
-        if(strcmp(argv[1], "-a") == 0 || strcmp(argv[1], "-b") == 0){
-            inStream.open(argv[3]) ;
-            outStream.open(argv[4]) ;
-            processBalance(argv[1], stod(argv[2]), inStream, outStream) ; 
-            inStream.close() ; 
-            outStream.close() ;
-        }else if(strcmp(argv[1], "-d") == 0){
-            inStream.open(argv[3]) ;
-            outStream.open(argv[4]) ;
-            processBalanceDue(stoi(argv[2]), inStream, outStream) ; 
-            inStream.close() ; 
-            outStream.close() ;
-        }else if( strcmp(argv[1], "-A") == 0){
-            inStream.open(argv[2]) ; 
-            outStream.open(argv[3]) ; 
-            outputSummary(inStream, outStream) ; 
-            inStream.close() ;
-            outStream.close() ; 
+    if(argc == 4 || argc == 5){
+        if(isValidOption(argv[1])){
+            //checks the option inputted and then runs the function that corresponds with that option
+            if(strcmp(argv[1], "-a") == 0 || strcmp(argv[1], "-b") == 0){
+                inStream.open(argv[3]) ;
+                outStream.open(argv[4]) ;
+                processBalance(argv[1], stod(argv[2]), inStream, outStream) ; 
+                inStream.close() ; 
+                outStream.close() ;
+            }else if(strcmp(argv[1], "-d") == 0){
+                inStream.open(argv[3]) ;
+                outStream.open(argv[4]) ;
+                processBalanceDue(stoi(argv[2]), inStream, outStream) ; 
+                inStream.close() ; 
+                outStream.close() ;
+            }else if( strcmp(argv[1], "-A") == 0){
+                inStream.open(argv[2]) ; 
+                outStream.open(argv[3]) ; 
+                outputSummary(inStream, outStream) ; 
+                inStream.close() ;
+                outStream.close() ; 
+            }
+        }  else {
+            //returns invalid if the option is not one of the specified 
+            cout << "Invalid option please try again." ; 
         }
-    }  else {
-        //returns invalid if the option is not one of the specified 
-        cout << "Invalid option please try again." ; 
+    } else {
+        cout << "Invalid amount of arguments please try again." ; 
     }
     return 0 ;
 }
