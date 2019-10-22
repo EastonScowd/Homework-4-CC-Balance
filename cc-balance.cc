@@ -14,18 +14,21 @@
 #include <fstream>
 using namespace std;
 
-void customerInfo(int &id, string &firstName, string &lastName, double &bal, int &days, ifstream &instream) ; 
-bool isValidOption(string option) ; 
+void customerInfo(int &id, string &firstName, string &lastName, 
+                  double &bal, int &days, ifstream &instream) ; // gathers the customer info by 5 variables
+bool isValidOption(string option) ; // checks if option user inputs is valid
 void processBalance(string option, double balance,
-                  ifstream &instream, ofstream &outstream) ; 
-void processBalanceDue(int numDays, ifstream &instream, ofstream &outstream) ; 
-void outputSummary(ifstream &instream, ofstream &outstream) ; 
+                  ifstream &instream, ofstream &outstream) ; // works for two options checks the balance to see if it is below or above 
+                                                            // a specific number inputted by the user
+void processBalanceDue(int numDays, ifstream &instream, ofstream &outstream) ; // returns the customers which the days are within in the specified day inputted
+void outputSummary(ifstream &instream, ofstream &outstream) ; // prints the average/total of all balances, and also all of the data in the file
 
 int main(int argc, char const *argv[]) {
-    ifstream inStream ; 
+    ifstream inStream ; // instream and outstream for all the functions 
     ofstream outStream ; 
 
     if(isValidOption(argv[1])){
+        //checks the option inputted and then runs the function that corresponds with that option
         if(strcmp(argv[1], "-a") == 0 || strcmp(argv[1], "-b") == 0){
             inStream.open(argv[3]) ;
             outStream.open(argv[4]) ;
@@ -46,6 +49,7 @@ int main(int argc, char const *argv[]) {
             outStream.close() ; 
         }
     }  else {
+        //returns invalid if the option is not one of the specified 
         cout << "Invalid option please try again." ; 
     }
     return 0 ;
@@ -64,6 +68,7 @@ bool isValidOption(string option){
 }
 
 void processBalance(string option, double balance, ifstream &instream, ofstream &outstream) {
+    //declares variables of all the customers information 
     int id ; 
     string firstName ; 
     string lastName ; 
@@ -72,7 +77,9 @@ void processBalance(string option, double balance, ifstream &instream, ofstream 
 
     if(option == "-a"){
         while(!instream.eof()){
+            //declaring the customer info 
             customerInfo(id, firstName, lastName, bal, days, instream) ; 
+            //since option is a, it checks if bal is aboved the specified balance
             if(bal >= balance){
                 outstream << firstName << " " << lastName << "[" << id << "] " << "$" << bal << endl ; 
                 outstream << " Days til due: " << days << endl ; 
@@ -81,6 +88,7 @@ void processBalance(string option, double balance, ifstream &instream, ofstream 
     } else {
         while(!instream.eof()){
             customerInfo(id, firstName, lastName, bal, days, instream) ; 
+            //option is b, so it checks if bal is below specified balance 
             if(bal <= balance){
                 outstream << firstName << " " << lastName << "[" << id << "] " << "$" << bal << endl ; 
                 outstream << " Days til due: " << days << endl ; 
@@ -117,11 +125,12 @@ void outputSummary(ifstream &instream, ofstream &outstream){
 
     while(!instream.eof()){
         customerInfo(id, firstName, lastName, bal, days, instream) ; 
-        totalBal = totalBal + bal ; 
+        totalBal = totalBal + bal ; //finding the total balance
         outstream << firstName << " " << lastName << "[" << id << "] " <<  "$" << bal << endl  ; 
         outstream << setw(20) << " Days til due: " << days << endl ; 
         count += 1 ; 
     }
+    // finding the average 
     averageBal = totalBal / count ; 
     outstream.setf(ios::fixed);
     outstream.setf(ios::showpoint);
